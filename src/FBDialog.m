@@ -319,12 +319,12 @@ static CGFloat kBorderWidth = 10;
     [_closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [_closeButton addTarget:self action:@selector(cancel)
       forControlEvents:UIControlEventTouchUpInside];
-	if ([_closeButton respondsToSelector:@selector(titleLabel)]) {
-		_closeButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-	} else { // This triggers a deprecation warning but at least it will work on OS 2.x
-		_closeButton.font = [UIFont boldSystemFontOfSize:12];
-	}
-	_closeButton.showsTouchWhenHighlighted = YES;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
+    _closeButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+#else
+    _closeButton.font = [UIFont boldSystemFontOfSize:12];
+#endif
+    _closeButton.showsTouchWhenHighlighted = YES;
     _closeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin
       | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:_closeButton];
